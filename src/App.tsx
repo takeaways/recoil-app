@@ -1,7 +1,9 @@
 import React from "react";
 
+import TextInput from "components/text-input/text-input.component";
+
 function App() {
-  return <div className="App">APp</div>;
+  return <TextInput />;
 }
 
 export default App;
