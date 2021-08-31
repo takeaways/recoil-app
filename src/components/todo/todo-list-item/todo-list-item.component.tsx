@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { editTodo, Todo, todoListState } from "atoms/todo";
 import styles from "./todo-list-item.module.css";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -7,6 +7,7 @@ interface Props {
   todo: Todo;
 }
 function TodoListItem({ todo }: Props) {
+  const [time, setTime] = useState(0);
   const { id, isComplete, text } = todo;
   const touchRef = useRef<number>(0);
   const [todoList, setTodoList] = useRecoilState(todoListState);
@@ -35,7 +36,8 @@ function TodoListItem({ todo }: Props) {
 
   const handleDoubleTouch = () => {
     const current = new Date().getTime();
-    if (current - touchRef.current <= 400) {
+    setTime(current - touchRef.current);
+    if (current - touchRef.current <= 600) {
       handleDoneTodo();
       touchRef.current = 0;
     } else {
@@ -48,18 +50,21 @@ function TodoListItem({ todo }: Props) {
   };
 
   return (
-    <li
-      className={`${styles.item} ${isComplete && styles.done}`}
-      onDoubleClick={handleDoneTodo}
-      onTouchStart={handleDoubleTouch}
-    >
-      <span className={styles.id}>{id}</span>
-      <p className={styles.content}>{text}</p>
-      <div className={styles.controls}>
-        <button onClick={handleClickEdit}>✏️</button>
-        <button onClick={handleDeleteItem}>❌</button>
-      </div>
-    </li>
+    <>
+      <li
+        className={`${styles.item} ${isComplete && styles.done}`}
+        onDoubleClick={handleDoneTodo}
+        onTouchStart={handleDoubleTouch}
+      >
+        <span className={styles.id}>{id}</span>
+        <p className={styles.content}>{text}</p>
+        <div className={styles.controls}>
+          <button onClick={handleClickEdit}>✏️</button>
+          <button onClick={handleDeleteItem}>❌</button>
+        </div>
+        <span className={styles.time}>{time}</span>
+      </li>
+    </>
   );
 }
 

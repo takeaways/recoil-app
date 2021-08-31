@@ -1,5 +1,6 @@
 
 .item{
+  position: relative;
   height: 10rem;
   padding: 1em;
   margin-bottom: 1em;
@@ -52,4 +53,9 @@
 
 .done{
   background-color: lightgreen;
+}
+.time{
+  position: absolute;
+  top:0;
+  left: 0;
 }
