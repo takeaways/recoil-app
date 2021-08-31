@@ -39,7 +39,6 @@ function TodoListItem({ todo }: Props) {
     setTime(current - touchRef.current);
     if (current - touchRef.current <= 600) {
       handleDoneTodo();
-      touchRef.current = 0;
     } else {
       touchRef.current = current;
     }
