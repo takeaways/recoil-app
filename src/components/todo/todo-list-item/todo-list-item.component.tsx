@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { editTodo, Todo, todoListState } from "atoms/todo";
 import styles from "./todo-list-item.module.css";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -8,6 +8,7 @@ interface Props {
 }
 function TodoListItem({ todo }: Props) {
   const { id, isComplete, text } = todo;
+  const touchRef = useRef<number>(0);
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const setEditTodo = useSetRecoilState(editTodo);
 
@@ -32,6 +33,15 @@ function TodoListItem({ todo }: Props) {
     ]);
   };
 
+  const handleDoubleTouch = () => {
+    const current = new Date().getTime();
+    if (current - touchRef.current <= 1000) {
+      handleDoneTodo();
+    } else {
+      touchRef.current = current;
+    }
+  };
+
   const handleClickEdit = () => {
     setEditTodo(todo);
   };
@@ -40,6 +50,7 @@ function TodoListItem({ todo }: Props) {
     <li
       className={`${styles.item} ${isComplete && styles.done}`}
       onDoubleClick={handleDoneTodo}
+      onTouchStart={handleDoubleTouch}
     >
       <span className={styles.id}>{id}</span>
       <p className={styles.content}>{text}</p>
