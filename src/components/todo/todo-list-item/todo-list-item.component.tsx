@@ -35,8 +35,10 @@ function TodoListItem({ todo }: Props) {
 
   const handleDoubleTouch = () => {
     const current = new Date().getTime();
-    if (current - touchRef.current <= 1000) {
+    console.log(current, touchRef.current, current - touchRef.current);
+    if (current - touchRef.current <= 400) {
       handleDoneTodo();
+      touchRef.current = 0;
     } else {
       touchRef.current = current;
     }
