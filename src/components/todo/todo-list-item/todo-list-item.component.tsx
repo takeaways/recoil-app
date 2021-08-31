@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { editTodo, Todo, todoListState } from "atoms/todo";
 import styles from "./todo-list-item.module.css";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -6,10 +6,12 @@ import { useRecoilState, useSetRecoilState } from "recoil";
 interface Props {
   todo: Todo;
 }
+
 function TodoListItem({ todo }: Props) {
-  const [time, setTime] = useState(0);
   const { id, isComplete, text } = todo;
   const touchRef = useRef<number>(0);
+  const timeRef = useRef<NodeJS.Timeout>();
+
   const [todoList, setTodoList] = useRecoilState(todoListState);
   const setEditTodo = useSetRecoilState(editTodo);
 
@@ -35,13 +37,18 @@ function TodoListItem({ todo }: Props) {
   };
 
   const handleDoubleTouch = () => {
+    if (timeRef.current) {
+      clearTimeout(timeRef.current);
+    }
     const current = new Date().getTime();
-    setTime(current - touchRef.current);
     if (current - touchRef.current <= 600) {
       handleDoneTodo();
     } else {
       touchRef.current = current;
     }
+    timeRef.current = setTimeout(() => {
+      touchRef.current = 0;
+    }, 600);
   };
 
   const handleClickEdit = () => {
@@ -61,7 +68,6 @@ function TodoListItem({ todo }: Props) {
           <button onClick={handleClickEdit}>✏️</button>
           <button onClick={handleDeleteItem}>❌</button>
         </div>
-        <span className={styles.time}>{time}</span>
       </li>
     </>
   );

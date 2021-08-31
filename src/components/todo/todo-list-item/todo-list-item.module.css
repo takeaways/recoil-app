@@ -45,7 +45,7 @@
   background-color: inherit;
   font-size: 1.5rem;
   cursor: pointer;
-  transition: .3s;
+  transition:transform .3s;
 }
 .controls button:hover{
   transform:scale(1.3);
