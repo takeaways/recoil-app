@@ -1,5 +1,5 @@
 # Recoil Apps
-- Recoil을 사용해보는 튜토리얼
+- Recoil을 사용해보기 [여기](https://thirsty-cray-4acb65.netlify.app/)
 
 ## Atom
 __Atom__ 은 __상태\(state\)__ 의 일부를 나타낸다. Atoms는 어떤 컴포너느에서나 읽고 쓸 수 있다. atom의 값을 읽는 컴포넌트들은 암묵적으로 atom을 구동한다. 그래서 atom에 어떤 변화가 있으면 그 atom을 구동하는 모든 컴포넌트들이 re-rendering 되는 결과가 발생할 것이다.
