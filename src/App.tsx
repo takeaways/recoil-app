@@ -1,15 +1,8 @@
 import React from "react";
 
-import TextInput from "components/text-input/text-input.component";
-import TextCount from "components/text-count/text-count.component";
-
+import TodoList from "components/todo/todo-list/todo-list.component";
 function App() {
-  return (
-    <>
-      <TextInput />
-      <TextCount />
-    </>
-  );
+  return <TodoList />;
 }
 
 export default App;
